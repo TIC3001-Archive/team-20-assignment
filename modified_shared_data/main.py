@@ -1,17 +1,22 @@
 import os, sys
 
-def main():
+def main(arg:str = ""):
     assertFunc((sys.version_info[0] == 3 and sys.version_info[1] >= 6), "Your version of python is too old! Please use at least 3.6 and above.", True)
-    permutations = parseFile("input_files\\anime.txt")
-    permutations.sort(key=(lambda string: string.lower()))  #default sort takes upper/lower to account, which is not intuitive. 
-    print(permutations)
-    # files = os.listdir("input_files")
-    # for txtFile in files:
-    #     print(f"\n{os.path.splitext(txtFile)[0].upper()}")
-    #     circularShift(f"input_files\\{txtFile}")
+    if 
+    if assertFunc(os.path.isdir(arg) or os.path.isfile(arg), "Argument is nither a path to a directory or file! Using default settings."):              #if it's either a file or dir
+        print("wut wut")
+        pass
+    else:
+        files = os.listdir("input_files")
+        for txtFile in files:
+            print(f"\n{os.path.splitext(txtFile)[0].upper()}")
+            permutations = parseFile(f"input_files\\{txtFile}")
+            permutations.sort(key=(lambda string: string.lower()))  #default sort takes upper/lower to account, which is not intuitive. 
+            for p in permutations:
+                print(p)
 
 
-def assertFunc(assertion:bool, msg:str = "", fatal:bool = False):
+def assertFunc(assertion:bool, msg:str = "", fatal:bool = False) -> bool:
     try:
         assert assertion
     except AssertionError:
@@ -19,6 +24,9 @@ def assertFunc(assertion:bool, msg:str = "", fatal:bool = False):
         if fatal:
             print("Exiting program.")
             exit(1)
+        else:
+            return assertion
+    return assertion
         
 
 def parseFile(path:str) -> list:
@@ -44,4 +52,8 @@ def circularShift(title:str) -> list:
 
 
 if __name__ == "__main__":
-    main()
+    assertFunc((len(sys.argv) <= 2), "Too many arguments! Check your input.", True)
+    if len(sys.argv) == 2:
+        main(sys.argv[1])
+    elif len(sys.argv) == 1:
+        main()
