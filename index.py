@@ -29,14 +29,13 @@ for txtFile in files:
             
                 currentWord = titleArr[i]
                 
-                if not currentWord.lower() in filterArr:
-                    printOut.append(currentTitle)
+                # if not currentWord.lower() in filterArr:
+                printOut.append(currentTitle)
                     
                 currentTitle = currentTitle.replace(currentWord+' ', '')
                 currentTitle = currentTitle + " " + currentWord
                      
         printOut.sort(key=str.lower)
-        #sorted(printOut, key=str.lower)
         #print(printOut)
         
         for i in range(0, len(printOut)):
