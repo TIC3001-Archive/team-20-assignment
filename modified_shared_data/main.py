@@ -2,25 +2,29 @@ import os, sys
 
 def main(arg:str = ""):
     assertFunc((sys.version_info[0] == 3 and sys.version_info[1] >= 6), "Your version of python is too old! Please use at least 3.6 and above.", True)
-    if 
-    if assertFunc(os.path.isdir(arg) or os.path.isfile(arg), "Argument is nither a path to a directory or file! Using default settings."):              #if it's either a file or dir
-        print("wut wut")
-        pass
+    path = ""
+    if assertFunc(os.path.isfile(arg), "missing path parameter!"):              #if it's either a file
+        sortAndPrint(path)
     else:
-        files = os.listdir("input_files")
-        for txtFile in files:
-            print(f"\n{os.path.splitext(txtFile)[0].upper()}")
-            permutations = parseFile(f"input_files\\{txtFile}")
-            permutations.sort(key=(lambda string: string.lower()))  #default sort takes upper/lower to account, which is not intuitive. 
-            for p in permutations:
-                print(p)
+        while not os.path.isfile(path):
+            path = input("Please try again, input file path.\n")
+        sortAndPrint(path)
 
+def sortAndPrint(path:str):
+    # print(f"\n{os.path.splitext(txtFile)[0].upper()}")    #prints file name.
+    permutations = parseFile(path)
+    permutations.sort(key=(lambda string: string.lower()))  #default sort takes upper/lower to account, which is not intuitive. 
+    with open(f"./output_files/{os.path.splitext(os.path.basename(path))[0]}_output2.txt", "w") as f:
+        f.write("\n".join(permutations))
+    for p in permutations:
+        print(p)
 
 def assertFunc(assertion:bool, msg:str = "", fatal:bool = False) -> bool:
     try:
         assert assertion
     except AssertionError:
-        print(msg)
+        if len(msg) > 0:
+            print(msg)  
         if fatal:
             print("Exiting program.")
             exit(1)
