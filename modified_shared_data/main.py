@@ -14,6 +14,8 @@ def sortAndPrint(path:str):
     # print(f"\n{os.path.splitext(txtFile)[0].upper()}")    #prints file name.
     permutations = parseFile(path)
     permutations.sort(key=(lambda string: string.lower()))  #default sort takes upper/lower to account, which is not intuitive. 
+    with open(f"./output_files/{os.path.splitext(os.path.basename(path))[0]}_output2.txt", "w") as f:
+        f.write("\n".join(permutations))
     for p in permutations:
         print(p)
 
