@@ -22,12 +22,13 @@ def assertFunc(assertion:bool, msg:str = "", fatal:bool = False) -> bool:
     return assertion
     
 def circularShift(titleFile):
-    
-    with open(f"{titleFile}.txt") as f:
-
+    path = f"{titleFile}.txt"                                                           #bad practice, but no time to change. :stare: at Yan Shuang
+    assertFunc(os.path.isfile(path), "Input titleFile is not a valid filepath!", True)  # Case 1: titleFile is valid file path
+    with open(path) as f:
+        
         titles = f.readlines()
         
-        index = 0;
+        index = 0
         
         printOut = []
         
@@ -77,7 +78,9 @@ def output(printOut:str) -> list:
         print(printOut[i])  
 
 def getIgnoreList(ignoreFile):
-    with open(f"{ignoreFile}.txt") as f:
+    path = f"{ignoreFile}.txt"
+    assertFunc(os.path.isfile(path), "Input ignoreFile is not a valid filepath!", True) # Case 1: ignoreFile is valid file path
+    with open(path) as f:
         wordsIgnored = f.readlines()
 
         if len(wordsIgnored) < 1:
@@ -90,7 +93,9 @@ def getIgnoreList(ignoreFile):
     return(ignoreList)
 
 def getRequiredList(requireFile):
-    with open(f"{requireFile}.txt") as f:
+    path = f"{requireFile}.txt"
+    assertFunc(os.path.isfile(path), "Input requireFile is not a valid filepath!", True) # Case 1: requireFile is valid file path
+    with open(path) as f:
         wordsRequired = f.readlines()
         
         for wordRequired in wordsRequired:
@@ -101,7 +106,7 @@ def getRequiredList(requireFile):
  
 
 def main():
-    
+    assertFunc(len(sys.argv) == 4, "Invalid number of arguments! Please follow the format: py index.py path_of_titles_file path_of_ignore_file path_of_require_file", True) # Case 2: Valid number of argument
     titleFile = sys.argv[1]
     ignoreFile = sys.argv[2]
     requireFile = sys.argv[3]
