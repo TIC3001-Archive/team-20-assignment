@@ -16,14 +16,17 @@ def main(arg1:str = "", arg2:str = "", arg3:str = ""):
                 for p in phrases:
                     kwic[fp].extend(circularShift(p))
         inputStr = input("In search mode. Input keyword, or input 'q' to exit.\n")
-        reqArr.append(inputStr)
+        if len(inputStr.split(" ")) == 1:
+            reqArr.append(inputStr)
         while inputStr != 'q':
             for k in kwic:
                 filteredArr = filterKeywords(kwic[k], [], reqArr)
                 if len(filteredArr) > 0:
-                    print(k)
+                    print(f'\033[1m\033[4m{k}\033[0m')
                     sortAndPrint(filteredArr)
             inputStr = input()
+            if len(inputStr.split(" ")) == 1:
+                reqArr.append(inputStr)
         exit(0) # when input is q, exit.
     while not os.path.isfile(paths[0]) or not os.path.isfile(paths[1]) or not os.path.isfile(paths[2]): #while any of the the paths provided are not file paths
         path = input("Please try again, input file paths.\n")
@@ -56,7 +59,7 @@ def assertFunc(assertion:bool, msg:str = "", fatal:bool = False) -> bool:
     return assertion
         
 def parseFile(fp: str) -> list:
-    assertFunc(os.path.isfile(fp), "path is not a file or not valid.")   #makes sure that path param is a file 
+    assertFunc(os.path.isfile(fp), "path is not a file or not valid.", True)   #makes sure that path param is a file 
     results = []
     with open(fp, "r") as f:
         results = [s.strip() for s in f.readlines()]
