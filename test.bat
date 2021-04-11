@@ -1,4 +1,3 @@
-cd "%cd%/Assignment_2"
-python3 ./index.py titles1 ignore1 require1 || python ./index.py titles1 ignore1 require1
-python3 ./index.py titles2 ignore2 require2 || python ./index.py titles2 ignore2 require2
-python3 ./index.py titles3 ignore3 require3 || python ./index.py titles3 ignore3 require3
+python3 ./main.py ./input_files/titles1.txt ./input_files/ignore1.txt ./input_files/require1.txt || python ./main.py ./input_files/titles1.txt ./input_files/ignore1.txt ./input_files/require1.txt
+python3 ./main.py ./input_files/titles2.txt ./input_files/ignore2.txt ./input_files/require2.txt || python ./main.py ./input_files/titles2.txt ./input_files/ignore2.txt ./input_files/require2.txt
+python3 ./main.py ./input_files/titles3.txt ./input_files/ignore3.txt ./input_files/require3.txt || python ./main.py ./input_files/titles3.txt ./input_files/ignore3.txt ./input_files/require3.txt
