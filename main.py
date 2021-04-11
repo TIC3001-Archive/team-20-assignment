@@ -59,7 +59,7 @@ def assertFunc(assertion:bool, msg:str = "", fatal:bool = False) -> bool:
     return assertion
         
 def parseFile(fp: str) -> list:
-    assertFunc(os.path.isfile(fp), "path is not a file or not valid.", True)   #makes sure that path param is a file 
+    assertFunc(os.path.isfile(fp), f"{fp} is not a file or not valid.", True)   #makes sure that path param is a file 
     results = []
     with open(fp, "r") as f:
         results = [s.strip() for s in f.readlines()]
